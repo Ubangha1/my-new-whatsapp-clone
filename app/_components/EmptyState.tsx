@@ -18,7 +18,7 @@ const EmptyState = ({ currentUser }: EmptyStateProps) => {
                     src="/images/Communities.svg"
                     className="w-1/2 mt-36"
                 />
-                <h2 className="text-3xl m-12 mt-4 mb-4 text-muted-foreground">Tutorial Messeger</h2>
+                <h2 className="text-3xl m-12 mt-4 mb-4 text-muted-foreground">Steve chatting app Messeger</h2>
                 <Separator />
                 <h3 className="text-muted-foreground text-xl font-semibold text-gray-900 mb-3">Select a chat or start a new conversation</h3>
                 <NewChatSheet

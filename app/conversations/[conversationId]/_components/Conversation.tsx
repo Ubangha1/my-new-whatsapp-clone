@@ -1,7 +1,7 @@
 "use client"
 
 import { FullMessageType } from "@/app/_types";
-import { Conversation, User } from "@prisma/client";
+import type { Conversation, User } from "@prisma/client";
 import { useState } from "react";
 import Body from "./Body";
 import Header from "./Header";

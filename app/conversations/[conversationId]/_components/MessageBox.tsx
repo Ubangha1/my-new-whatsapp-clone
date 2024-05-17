@@ -34,6 +34,7 @@ const MessageBox = ({
         <div className={clsx('flex mb-[2px]', isOwn && 'justify-end items-start')}>
             {!isOwn && (
                 <Avatar className="ml-12">
+                    
                     <AvatarImage src={data.sender.profileImageUrl || undefined} />
                 </Avatar>
             )

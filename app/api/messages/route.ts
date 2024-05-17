@@ -4,9 +4,7 @@ import { removePlusSign } from "@/lib/phoneNumberUtil";
 import { pusherServer } from "@/lib/pusher";
 import { NextResponse } from "next/server";
 
-export async function POST(
-    request: Request
-) {
+export async function POST(request: Request) {
     try {
         const { currentUserPrisma, currentUserClerk } = await getCurrentUser();
         const body = await request.json();
@@ -17,7 +15,7 @@ export async function POST(
         } = body;
 
         if (!currentUserPrisma?.id || !currentUserClerk?.phoneNumbers[0]?.phoneNumber) {
-            return new NextResponse('Unauthorized', { status: 401 })
+            return new NextResponse('Unauthorized', { status: 401 });
         }
 
         const newMessage = await db.message.create({
@@ -66,25 +64,22 @@ export async function POST(
                     }
                 }
             }
-        })
-
+        });
 
         await pusherServer.trigger(conversationId, 'messages:new', newMessage);
 
         const lastMessage = updatedConversation.messages[updatedConversation.messages.length - 1];
 
-        updatedConversation.users.map((user) => {
+        updatedConversation.users.forEach((user) => {
             pusherServer.trigger(removePlusSign(currentUserPrisma.phoneNumber), 'conversation:update', {
                 id: conversationId,
                 messages: [lastMessage]
-            })
-        })
+            });
+        });
 
-
-
-        return NextResponse.json(newMessage)
+        return NextResponse.json(newMessage);
     } catch (error) {
-        console.log(error, 'ERROR_MESSAGE')
-        return new NextResponse('Error', { status: 500 })
+        console.error(error, 'ERROR_MESSAGE');
+        return new NextResponse('Error', { status: 500 });
     }
-} 
+}
